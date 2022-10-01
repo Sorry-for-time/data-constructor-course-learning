@@ -4,6 +4,7 @@ import me.shalling.linearList.LinearList;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.function.Consumer;
 
 /**
@@ -49,7 +50,13 @@ public class LinerListTest {
         wrapFlag++;
       }
     });
-    System.out.println("=".repeat(10) + "分割线" + "=".repeat(10));
+
+    // 迭代器测试
+    for (String s : stringLinearList) {
+      System.out.print("|" + s + "\t");
+    }
+
+    System.out.println("\n" + "=".repeat(10) + "分割线" + "=".repeat(10));
     System.out.println("取得 buffer 中的实际元素: " + Arrays.toString(stringLinearList.getFactItems()));
   }
 }
