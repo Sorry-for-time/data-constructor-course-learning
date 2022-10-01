@@ -2,6 +2,7 @@ package me.shalling.linearList;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.Iterator;
 import java.util.function.Consumer;
 
 /**
@@ -12,7 +13,7 @@ import java.util.function.Consumer;
  * @see <a href="https://github.com/Sorry-for-time">follow me on github</a>
  * @since 2022/9/24 18:45
  */
-public class LinearList<T> implements Serializable {
+public class LinearList<T> implements Serializable, Iterable<T> {
   /**
    * @description 序列化 ID 标识
    */
@@ -32,10 +33,10 @@ public class LinearList<T> implements Serializable {
   /**
    * @description 缓冲区数组
    */
-  private final T[] buffer;
+  private final Object[] buffer;
 
   public LinearList() {
-    this.buffer = (T[]) (new Object[this.maxLength]);
+    this.buffer = new Object[this.maxLength];
   }
 
   public boolean isEmpty() {
@@ -48,7 +49,7 @@ public class LinearList<T> implements Serializable {
 
   public LinearList(int maxLength) {
     this.maxLength = maxLength;
-    this.buffer = (T[]) (new Object[this.maxLength]);
+    this.buffer = new Object[this.maxLength];
   }
 
   /**
@@ -96,7 +97,7 @@ public class LinearList<T> implements Serializable {
       throw new RuntimeException("索引位置非法");
     }
     // 取得对应下标的值进行保存
-    T backValue = this.buffer[removeLocation - 1];
+    T backValue = (T) this.buffer[removeLocation - 1];
     // 循环进行元素向前迁移
     for (int i = removeLocation - 1; i < this.currentIndex; ++i) {
       this.buffer[i - 1] = this.buffer[i];
@@ -110,9 +111,9 @@ public class LinearList<T> implements Serializable {
    * @param consumer 消费者对象
    * @description 遍历顺序表中缓存区的实际元素
    */
-  public void forEach(Consumer<T> consumer) {
+  public void forEach(Consumer<? super T> consumer) {
     for (int i = 0; i < this.currentIndex; i++) {
-      consumer.accept(this.buffer[i]);
+      consumer.accept((T) this.buffer[i]);
     }
   }
 
@@ -121,8 +122,25 @@ public class LinearList<T> implements Serializable {
    * @description 取得缓存中的列表元素数组
    */
   public T[] getFactItems() {
-    T[] backValue = (T[]) new Object[this.currentIndex];
+    Object[] backValue = new Object[this.currentIndex];
     System.arraycopy(this.buffer, 0, backValue, 0, this.currentIndex);
-    return backValue;
+    return (T[]) backValue;
+  }
+
+  @Override
+  public Iterator<T> iterator() {
+    return new Iterator<T>() {
+      private int start = 0;
+
+      @Override
+      public boolean hasNext() {
+        return start < currentIndex;
+      }
+
+      @Override
+      public T next() {
+        return (T) buffer[start++];
+      }
+    };
   }
 }
