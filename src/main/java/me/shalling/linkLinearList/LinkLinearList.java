@@ -2,6 +2,7 @@ package me.shalling.linkLinearList;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.Iterator;
 import java.util.function.Consumer;
 
 /**
@@ -12,7 +13,7 @@ import java.util.function.Consumer;
  * @see <a href="https://github.com/Sorry-for-time">follow me on github</a>
  * @since 2022/9/24 18:51
  */
-public class LinkLinearList<T> implements Serializable {
+public class LinkLinearList<T> implements Serializable, Iterable<T> {
   /**
    * @description 序列化 UID 标记
    */
@@ -188,7 +189,8 @@ public class LinkLinearList<T> implements Serializable {
    * @param consumer 消费者函数
    * @description 对链表实现的顺序表进行遍历操作
    */
-  public void forEach(Consumer<T> consumer) {
+  @Override
+  public void forEach(Consumer<? super T> consumer) {
     LinkNode<T> sendItem = this.headNode;
     for (int i = 0; i < this.currentIndex; i++) {
       consumer.accept(sendItem.getDataItem());
@@ -231,5 +233,24 @@ public class LinkLinearList<T> implements Serializable {
       current = current.getNext();
     }
     return backValue;
+  }
+
+  @Override
+  public Iterator<T> iterator() {
+    return new Iterator<>() {
+      private LinkNode<T> record = headNode;
+
+      @Override
+      public boolean hasNext() {
+        return null != record;
+      }
+
+      @Override
+      public T next() {
+        T backValue = record.getDataItem();
+        record = record.getNext();
+        return backValue;
+      }
+    };
   }
 }
