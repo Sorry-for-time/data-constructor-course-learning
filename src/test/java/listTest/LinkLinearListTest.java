@@ -52,8 +52,13 @@ public class LinkLinearListTest {
         wrapFlag++;
       }
     });
-    System.out.println();
-    System.out.println("=".repeat(23));
+
+    // 添加迭代器测试(调用了 iterator)
+    for (String s : stringLinkLinearList) {
+      System.out.print("|" + s + "\t");
+    }
+
+    System.out.println("\n" + "=".repeat(23));
     // 取得顺序表中的实际元素组成的数组
     System.out.println(Arrays.toString(stringLinkLinearList.getFactItems()));
   }
