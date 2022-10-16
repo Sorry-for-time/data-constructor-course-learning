@@ -4,7 +4,6 @@ import me.shalling.linearList.LinearList;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
-import java.util.Iterator;
 import java.util.function.Consumer;
 
 /**
