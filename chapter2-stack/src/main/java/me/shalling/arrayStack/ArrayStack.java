@@ -59,7 +59,7 @@ public class ArrayStack<T> implements Serializable, Iterable<T> {
   }
 
   /**
-   * @description 置空栈
+   * @description 置栈空
    */
   public void clear() {
     this.currentFrameLocation = 0;
@@ -101,7 +101,7 @@ public class ArrayStack<T> implements Serializable, Iterable<T> {
   }
 
   /**
-   * @return 跌代元素
+   * @return 迭代元素
    * @description 提供迭代器用于 for-each 循环
    */
   @Override
