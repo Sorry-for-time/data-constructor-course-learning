@@ -1,9 +1,26 @@
-package me.shalling;/**
-* @description      <h1>write comment here</h1>
-* @author           Shalling
-* @see              <a href="https://github.com/Sorry-for-time">follow me on github</a>
-* @package          {me.shalling}
-* @since            2022/10/16 22:13
-* @version          v0.01
-*/public class QueueNode {
+package me.shalling;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NonNull;
+
+import java.io.Serial;
+import java.io.Serializable;
+
+@Data
+@AllArgsConstructor
+public class QueueNode<T> implements Serializable {
+  @Serial
+  private static final long serialVersionUID = 1492079296340693940L;
+
+  /**
+   * @description 节点数据域定义
+   */
+  @NonNull
+  private T dataDomain;
+
+  /**
+   * @description 指向下一个节点的记录
+   */
+  private QueueNode<T> next;
 }
