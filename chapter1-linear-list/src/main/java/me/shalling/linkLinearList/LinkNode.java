@@ -13,7 +13,6 @@ public class LinkNode<T> {
 
   private LinkNode<T> next;
 
-
   public LinkNode() {
   }
 
@@ -42,9 +41,8 @@ public class LinkNode<T> {
   @Override
   public String toString() {
     return "LinkNode{" +
-            "dataItem=" + dataItem +
-            ", next=" + next.getDataItem() + // 防递归引用
-            '}';
+      "dataItem=" + dataItem +
+      ", next=" + next.getDataItem() + // 防递归引用
+      '}';
   }
 }
-
