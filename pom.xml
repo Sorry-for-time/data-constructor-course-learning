@@ -11,6 +11,7 @@
   <modules>
     <module>chapter1-linear-list</module>
     <module>chapter2-stack</module>
+    <module>chapter3-link-circle-queue</module>
   </modules>
 
   <properties>
