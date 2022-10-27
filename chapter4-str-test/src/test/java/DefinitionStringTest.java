@@ -13,7 +13,8 @@ public class DefinitionStringTest {
   public void definitionStringTest() {
     DefinitionString str = new DefinitionString(new char[]{'h', 'o', 'o', '2', 'w', '?'});
     System.out.println(str);
-    DefinitionString insertStr = str.insertIntoDefineLocation(1, new DefinitionString(new char[]{'w', 'h', 'a', 't'}));
+    DefinitionString insertStr = str
+      .insertIntoDefineLocation(1, new DefinitionString(new char[]{'w', 'h', 'a', 't'}));
     System.out.println(insertStr);
     DefinitionString newStr = str.replace('h', 'e');
     System.out.println(newStr.replaceAll('o', 'H'));
