@@ -2,6 +2,7 @@ package me.shalling;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.Arrays;
 
 /**
  * @author Shalling
@@ -11,7 +12,7 @@ import java.io.Serializable;
  * @see <a href="https://github.com/Sorry-for-time">follow me on github</a>
  * @since 2022/10/24 14:47
  */
-public class DefinitionString implements Serializable {
+public class DefinitionString implements Serializable, Comparable<DefinitionString> {
   @Serial
   private static final long serialVersionUID = 1421462135553039727L;
 
@@ -26,13 +27,14 @@ public class DefinitionString implements Serializable {
   private final int strLength;
 
   public DefinitionString(char[] chars) {
-    this.strBuffers = chars;
+    this.strBuffers = new char[chars.length];
+    // 进行独立拷贝, 防止引用改变带来的结构破坏
+    System.arraycopy(chars, 0, this.strBuffers, 0, this.strBuffers.length);
     this.strLength = chars.length;
   }
 
   public DefinitionString(DefinitionString definitionString) {
-    this.strBuffers = definitionString.strBuffers;
-    this.strLength = this.strBuffers.length;
+    this(definitionString.strBuffers);
   }
 
   public int length() {
@@ -158,5 +160,25 @@ public class DefinitionString implements Serializable {
   @Override
   public String toString() {
     return String.valueOf(this.strBuffers);
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (!(o instanceof DefinitionString string)) return false;
+    if (strLength != string.strLength) return false;
+    return Arrays.equals(strBuffers, string.strBuffers);
+  }
+
+  @Override
+  public int hashCode() {
+    int result = Arrays.hashCode(strBuffers);
+    result = 31 * result + strLength;
+    return result;
+  }
+
+  @Override
+  public int compareTo(DefinitionString o) {
+    return 0;
   }
 }
