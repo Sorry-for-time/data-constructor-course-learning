@@ -159,8 +159,8 @@ public class DefinitionString implements Serializable, Comparable<DefinitionStri
    * @param joinStr 拼接串
    * @return 拼接完的的自定义字符串
    */
-  public DefinitionString concat(DefinitionString origin, DefinitionString joinStr) {
-    return new DefinitionString(joinStrArr(origin, joinStr));
+  public DefinitionString concat(DefinitionString joinStr) {
+    return new DefinitionString(joinStrArr(this, joinStr));
   }
 
   /**

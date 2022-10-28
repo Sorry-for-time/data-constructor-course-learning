@@ -81,4 +81,22 @@ public class DefinitionStringTest {
   public void subStrTest() {
     System.out.println(originStr.subStr(1, 5));
   }
+
+  /**
+   * 将截取的子串以字符数组的方式返回
+   */
+  @Test
+  public void subStrArrayTest() {
+    System.out.println(originStr.subStrArray(1, 5));
+  }
+
+  /**
+   * 字符串拼接测试
+   */
+  @Test
+  public void concatTest() {
+    System.out.println(originStr.concat(originStr));
+  }
+
+
 }
