@@ -163,17 +163,6 @@ public class DefinitionString implements Serializable, Comparable<DefinitionStri
   }
 
   /**
-   * 返回一个拼接完成后的自定义字符串
-   *
-   * @param origin  起始字符串
-   * @param joinStr 拼接串
-   * @return 拼接完的的自定义字符数组
-   */
-  public char[] concatStrArray(DefinitionString origin, DefinitionString joinStr) {
-    return joinStrArr(origin, joinStr);
-  }
-
-  /**
    * 返回自定义字符串的字符数组(这是一份独立的拷贝)
    *
    * @return 字符串字符数组独立拷贝
