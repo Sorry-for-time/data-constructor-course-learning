@@ -16,7 +16,12 @@ public class DefinitionStringTest {
     DefinitionString insertStr = str
       .insertIntoDefineLocation(1, new DefinitionString(new char[]{'w', 'h', 'a', 't'}));
     System.out.println(insertStr);
+    // 替换自定义字符中第一个匹配到的字符
     DefinitionString newStr = str.replace('h', 'e');
+    System.out.println(newStr);
+    // 替换自定义字符串中所有匹配的字符
     System.out.println(newStr.replaceAll('o', 'H'));
+    // 判断字符在自定义字符串中的位置
+    System.out.println(newStr.indexOf('2'));
   }
 }
