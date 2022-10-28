@@ -68,10 +68,13 @@ public class DefinitionString implements Serializable, Comparable<DefinitionStri
    * @param indexEnd   终点位置
    * @return 截取的子串
    */
-  public DefinitionString subStr(int indexStart, int indexEnd) {
+  public DefinitionString subStr(final int indexStart, final int indexEnd) {
+    if (indexStart < 0 || indexEnd > strLength) {
+      throw new RuntimeException("index out of bound");
+    }
     char[] chars = new char[indexEnd - indexStart];
-    for (int i = 0, record = indexStart; i < indexEnd; ++i, ++record) {
-      chars[i] = this.strBuffers[record];
+    for (int i = 0, record = indexStart; i < indexEnd - indexStart; ++i, ++record) {
+      chars[i] = strBuffers[record];
     }
     return new DefinitionString(chars);
   }
@@ -85,7 +88,7 @@ public class DefinitionString implements Serializable, Comparable<DefinitionStri
    */
   public char[] subStrArray(int indexStart, int indexEnd) {
     char[] chars = new char[indexEnd - indexStart];
-    for (int i = 0, record = indexStart; i < indexEnd; ++i, ++record) {
+    for (int i = 0, record = indexStart; i < indexEnd - indexStart; ++i, ++record) {
       chars[i] = this.strBuffers[record];
     }
     return chars;
@@ -172,6 +175,17 @@ public class DefinitionString implements Serializable, Comparable<DefinitionStri
   }
 
   /**
+   * 返回自定义字符串的字符数组(这是一份独立的拷贝)
+   *
+   * @return 字符串字符数组独立拷贝
+   */
+  public char[] toCharArray() {
+    char[] chars = new char[strBuffers.length];
+    System.arraycopy(this.strBuffers, 0, chars, 0, strLength);
+    return chars;
+  }
+
+  /**
    * 返回字符在自定义字符串中的位置
    *
    * @param matchChar 匹配的字符
@@ -181,6 +195,42 @@ public class DefinitionString implements Serializable, Comparable<DefinitionStri
     for (int i = 0; i < this.strBuffers.length; ++i) {
       if (matchChar == this.strBuffers[i]) {
         return i;
+      }
+    }
+    return -1;
+  }
+
+  /**
+   * 取得子串在原始字符串中首次出现的下标位置, 如果未取得, 返回 -1
+   *
+   * @param matchStr 进行擦匹配的子串
+   * @return 子串首次出现的位置
+   * @brief 实现上: 暴力 for 循环逐一比较
+   */
+  public int indexOf(final DefinitionString matchStr) {
+    char[] matchChars = matchStr.toCharArray();
+    // 如果参与比较的字符串长度为 0, 直接返回;
+    if (matchChars.length == 0) {
+      return 0;
+    }
+    // 如果原始字符串的长度小于参与匹配的字符串, 那么直接返回
+    if (this.strBuffers.length < matchChars.length) {
+      return -1;
+    }
+    int count = 0;
+    for (int i = 0; i < strBuffers.length; ++i) {
+      // 暴力 for 循环进行每个字符的比较
+      for (int j = 0; j < matchChars.length; ++j) {
+        if (matchChars[j] == strBuffers[i + j]) {
+          count++;
+        }
+        // 如果不匹配, 直接中断本次循环比对
+        else if (matchChars[j] != strBuffers[i]) {
+          break;
+        }
+        if (count == matchChars.length) {
+          return i;
+        }
       }
     }
     return -1;
