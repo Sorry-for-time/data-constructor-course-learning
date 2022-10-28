@@ -15,4 +15,5 @@
 chapter1-linear-list        顺序表(数组 && 单链表) 
 chapter2-stack              栈(基于数组)
 chapter3-link-circle-queue  循环队列(基于链表)
+chapter4-str-test           自定义简化版字符串(基于数组, 不可变长)
 ```
