@@ -180,6 +180,7 @@ public class DefinitionString implements Serializable, Comparable<DefinitionStri
   public boolean equals(Object o) {
     if (this == o) return true;
     // java16 对 instanceof 语法进行了加强, 允许直接使用模式变量, 如下的 definitionStr
+    // 可以简单理解为在判断类型成功后提供一个进行类型强转的变量, 方便后续操作
     if (!(o instanceof DefinitionString definitionStr)) return false;
     if (strLength != definitionStr.strLength) return false;
     return Arrays.equals(strBuffers, definitionStr.strBuffers);
