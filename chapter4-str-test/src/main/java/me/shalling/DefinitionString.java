@@ -71,6 +71,13 @@ public class DefinitionString implements Serializable, Comparable<DefinitionStri
     return chars;
   }
 
+  /**
+   * 替换自定义字符中首个出现的指定字符
+   *
+   * @param matchStr   匹配的字符
+   * @param replaceStr 进行替换的字符
+   * @return 新建的自定义字符串
+   */
   public DefinitionString replace(char matchStr, char replaceStr) {
     int count = 0;
     char[] newStrBuffer = new char[this.strLength];
@@ -98,6 +105,13 @@ public class DefinitionString implements Serializable, Comparable<DefinitionStri
     return new DefinitionString(newStrBuffer);
   }
 
+  /**
+   * 在指定位置插入另一个自定义字符串
+   *
+   * @param insertLocation 插入新字符串的下标
+   * @param newStr         进行拼接的字符串
+   * @return 插入指定位置后的新字符串实例
+   */
   public DefinitionString insertIntoDefineLocation(int insertLocation, DefinitionString newStr) {
     int newStrLength = newStr.strLength + this.strLength;
     char[] strBuffer = new char[newStrLength];
@@ -177,8 +191,38 @@ public class DefinitionString implements Serializable, Comparable<DefinitionStri
     return result;
   }
 
+  /**
+   * 返回字符在自定义字符串中的位置
+   *
+   * @param matchChar 匹配的字符
+   * @return 如果存在, 返回真实的下标位置, 否则返回 -1
+   */
+  public int indexOf(char matchChar) {
+    for (int i = 0; i < this.strBuffers.length; ++i) {
+      if (matchChar == this.strBuffers[i]) {
+        return i;
+      }
+    }
+    return -1;
+  }
+
   @Override
   public int compareTo(DefinitionString o) {
-    return 0;
+    // 首先调用 equals 判断, 如果就是相同对象, 直接返回 0
+    if (this.equals(o)) {
+      return 0;
+    }
+    // 如果两个自定义字符串的长度一样, 那么逐一进行字符比较, 直到遇到差异
+    if (this.strBuffers.length == o.strBuffers.length) {
+      for (int i = 0; i < o.strBuffers.length; ++i) {
+        if (this.strBuffers[i] > o.strBuffers[i]) {
+          return 1;
+        } else if (this.strBuffers[i] < o.strBuffers[i]) {
+          return -1;
+        }
+      }
+    }
+    // 如果字符串长度不同, 直接返回长度差值
+    return this.strBuffers.length - o.strBuffers.length;
   }
 }
