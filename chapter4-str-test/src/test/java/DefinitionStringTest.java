@@ -9,19 +9,76 @@ import org.junit.jupiter.api.Test;
  * @since 2022/10/24 15:38
  */
 public class DefinitionStringTest {
+  private final static char[] chars = {'h', 'o', 'w', ' ', 'h', 'o', 'w'};
+  private final static DefinitionString originStr = new DefinitionString(chars);
+
+  /**
+   * 构建自定义字符串和重写 toSting() 方法测试
+   */
   @Test
-  public void definitionStringTest() {
-    DefinitionString str = new DefinitionString(new char[]{'h', 'o', 'o', '2', 'w', '?'});
-    System.out.println(str);
-    DefinitionString insertStr = str
-      .insertIntoByLocation(1, new DefinitionString(new char[]{'w', 'h', 'a', 't'}));
-    System.out.println(insertStr);
-    // 替换自定义字符中第一个匹配到的字符
-    DefinitionString newStr = str.replace('h', 'e');
+  public void buildAndToStringTest() {
+    DefinitionString definitionString = new DefinitionString(originStr);
+    System.out.println(definitionString);
+  }
+
+  /**
+   * replace 方法测试
+   */
+  @Test
+  public void replaceTest() {
+    DefinitionString replaceStr = originStr.replace('w', 'W');
+    System.out.println(replaceStr);
+  }
+
+  /**
+   * replaceAll 方法测试
+   */
+  @Test
+  public void replaceAllTest() {
+    DefinitionString replaceStr = originStr.replaceAll('h', 'H');
+    System.out.println(replaceStr);
+  }
+
+  @Test
+  public void insertIntoByLocationTest() {
+    DefinitionString newStr = originStr.insertIntoByLocation(originStr.length() - 2, originStr);
     System.out.println(newStr);
-    // 替换自定义字符串中所有匹配的字符
-    System.out.println(newStr.replaceAll('o', 'H'));
-    // 判断字符在自定义字符串中的位置
-    System.out.println(newStr.indexOf('2'));
+  }
+
+  /**
+   * 判断单个字符在自定义字符串中首次出现的位置
+   */
+  @Test
+  public void indexOfCharTest() {
+    System.out.println(originStr.indexOf('w'));
+  }
+
+  /**
+   * 取得子串主字符串中首次出现的位置
+   */
+  @Test
+  public void indexOfDefineStringTest() {
+    final DefinitionString compareStr = new DefinitionString(new char[]{' ', 'h', 'o'});
+    System.out.println(originStr.indexOf(compareStr)); // 3
+    final DefinitionString compareStr1 = new DefinitionString(new char[]{' ', 'h', 'e'});
+    System.out.println(originStr.indexOf(compareStr1)); // -1
+    final DefinitionString compareStr2 = new DefinitionString(new char[]{'h', 'o'});
+    System.out.println(originStr.indexOf(compareStr2)); // 0
+  }
+
+  /**
+   * 取得自定义字符串的原始数组拷贝
+   */
+  @Test
+  public void toCharArrayTest() {
+    System.out.println(originStr.toCharArray());
+  }
+
+  /**
+   * 截取子串测试
+   */
+  @Test
+  public void subStrTest() {
+    System.out.println(originStr.subStr(1, 5));
   }
 }
