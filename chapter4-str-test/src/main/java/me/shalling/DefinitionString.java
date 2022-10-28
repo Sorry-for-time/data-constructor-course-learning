@@ -37,6 +37,26 @@ public class DefinitionString implements Serializable, Comparable<DefinitionStri
     this(definitionString.strBuffers);
   }
 
+  /**
+   * 将两个自定义字符串拼接成一个字符数组
+   *
+   * @param str1 第一个自定义字符串
+   * @param str2 第二个自定义字符串
+   * @return 拼接完成的字符数组
+   */
+  private static char[] joinStrArr(DefinitionString str1, DefinitionString str2) {
+    int strBufferLength = str1.length() + str2.length();
+    char[] chars = new char[strBufferLength];
+    int i = 0;
+    for (int j = 0; j < str1.length(); j++, i++) {
+      chars[i] = str1.strBuffers[j];
+    }
+    for (int j = 0; j < str2.length(); j++, i++) {
+      chars[i] = str1.strBuffers[j];
+    }
+    return chars;
+  }
+
   public int length() {
     return this.strLength;
   }
@@ -112,7 +132,7 @@ public class DefinitionString implements Serializable, Comparable<DefinitionStri
    * @param newStr         进行拼接的字符串
    * @return 插入指定位置后的新字符串实例
    */
-  public DefinitionString insertIntoDefineLocation(int insertLocation, DefinitionString newStr) {
+  public DefinitionString insertIntoByLocation(int insertLocation, DefinitionString newStr) {
     int newStrLength = newStr.strLength + this.strLength;
     char[] strBuffer = new char[newStrLength];
     int start = 0;
@@ -127,26 +147,6 @@ public class DefinitionString implements Serializable, Comparable<DefinitionStri
       strBuffer[start] = this.strBuffers[oldStrReadLength];
     }
     return new DefinitionString(strBuffer);
-  }
-
-  /**
-   * 将两个自定义字符串拼接成一个字符数组
-   *
-   * @param str1 第一个自定义字符串
-   * @param str2 第二个自定义字符串
-   * @return 拼接完成的字符数组
-   */
-  private static char[] joinStrArr(DefinitionString str1, DefinitionString str2) {
-    int strBufferLength = str1.length() + str2.length();
-    char[] chars = new char[strBufferLength];
-    int i = 0;
-    for (int j = 0; j < str1.length(); j++, i++) {
-      chars[i] = str1.strBuffers[j];
-    }
-    for (int j = 0; j < str2.length(); j++, i++) {
-      chars[i] = str1.strBuffers[j];
-    }
-    return chars;
   }
 
   /**
@@ -169,28 +169,6 @@ public class DefinitionString implements Serializable, Comparable<DefinitionStri
    */
   public char[] concatStrArray(DefinitionString origin, DefinitionString joinStr) {
     return joinStrArr(origin, joinStr);
-  }
-
-  @Override
-  public String toString() {
-    return String.valueOf(this.strBuffers);
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) return true;
-    // java16 对 instanceof 语法进行了加强, 允许直接使用模式变量, 如下的 definitionStr
-    // 可以简单理解为在判断类型成功后提供一个进行类型强转的变量, 方便后续操作
-    if (!(o instanceof DefinitionString definitionStr)) return false;
-    if (strLength != definitionStr.strLength) return false;
-    return Arrays.equals(strBuffers, definitionStr.strBuffers);
-  }
-
-  @Override
-  public int hashCode() {
-    int result = Arrays.hashCode(strBuffers);
-    result = 31 * result + strLength;
-    return result;
   }
 
   /**
@@ -226,5 +204,27 @@ public class DefinitionString implements Serializable, Comparable<DefinitionStri
     }
     // 如果字符串长度不同, 直接返回长度差值
     return this.strBuffers.length - o.strBuffers.length;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    // java16 对 instanceof 语法进行了加强, 允许直接使用模式变量, 如下的 definitionStr
+    // 可以简单理解为在判断类型成功后提供一个进行类型强转的变量, 方便后续操作
+    if (!(o instanceof DefinitionString definitionStr)) return false;
+    if (strLength != definitionStr.strLength) return false;
+    return Arrays.equals(strBuffers, definitionStr.strBuffers);
+  }
+
+  @Override
+  public int hashCode() {
+    int result = Arrays.hashCode(strBuffers);
+    result = 31 * result + strLength;
+    return result;
+  }
+
+  @Override
+  public String toString() {
+    return String.valueOf(this.strBuffers);
   }
 }

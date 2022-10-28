@@ -14,7 +14,7 @@ public class DefinitionStringTest {
     DefinitionString str = new DefinitionString(new char[]{'h', 'o', 'o', '2', 'w', '?'});
     System.out.println(str);
     DefinitionString insertStr = str
-      .insertIntoDefineLocation(1, new DefinitionString(new char[]{'w', 'h', 'a', 't'}));
+      .insertIntoByLocation(1, new DefinitionString(new char[]{'w', 'h', 'a', 't'}));
     System.out.println(insertStr);
     // 替换自定义字符中第一个匹配到的字符
     DefinitionString newStr = str.replace('h', 'e');
