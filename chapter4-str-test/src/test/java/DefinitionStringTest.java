@@ -97,6 +97,4 @@ public class DefinitionStringTest {
   public void concatTest() {
     System.out.println(originStr.concat(originStr));
   }
-
-
 }
