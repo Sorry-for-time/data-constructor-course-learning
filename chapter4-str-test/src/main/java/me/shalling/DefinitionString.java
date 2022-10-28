@@ -179,9 +179,10 @@ public class DefinitionString implements Serializable, Comparable<DefinitionStri
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
-    if (!(o instanceof DefinitionString string)) return false;
-    if (strLength != string.strLength) return false;
-    return Arrays.equals(strBuffers, string.strBuffers);
+    // java16 对 instanceof 语法进行了加强, 允许直接使用模式变量, 如下的 definitionStr
+    if (!(o instanceof DefinitionString definitionStr)) return false;
+    if (strLength != definitionStr.strLength) return false;
+    return Arrays.equals(strBuffers, definitionStr.strBuffers);
   }
 
   @Override
