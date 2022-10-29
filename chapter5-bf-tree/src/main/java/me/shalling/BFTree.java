@@ -18,7 +18,7 @@ import java.util.function.Consumer;
  * @see <a href="https://github.com/Sorry-for-time">follow me on github</a>
  * @since 2022/10/28 23:36
  */
-public class BFTree<T extends Comparable<T>> implements Serializable, Iterable<T> {
+public class BFTree<T extends Comparable<T>> implements Serializable, Iterable<T>, Comparable<BFTree<T>> {
   @Serial
   private static final long serialVersionUID = -4152677334247907325L;
 
@@ -131,5 +131,37 @@ public class BFTree<T extends Comparable<T>> implements Serializable, Iterable<T
       "root=" + root +
       ", length=" + length +
       '}';
+  }
+
+  @Override
+  public int compareTo(BFTree<T> o) {
+    // 如果指向了相同的地址, 那么就是相同的树
+    if (o == this) {
+      return 0;
+    }
+    // 先判断子节点个数
+    if (this.length > o.length) {
+      return 1;
+    } else if (this.length < o.length) {
+      return -1;
+    } else {
+      // 两棵树节点数相同的情况, 通过比较升序节点的每个值来判断
+      Object[] oNodes = o.toList().toArray();
+      Object[] origin = this.toList().toArray();
+      for (int i = 0; i < origin.length; i++) {
+        @SuppressWarnings("unchecked")
+        var comp = (T) origin[i];
+        @SuppressWarnings("unchecked")
+        var comp1 = (T) oNodes[i];
+        // 每个节点比较大小, 只要有一个节点的大小和另一个节点不相等, 那么就立即返回结果
+        if (comp.compareTo(comp1) > 0) {
+          return 1;
+        } else if (comp.compareTo(comp1) < 0) {
+          return -1;
+        }
+      }
+      // 如果每个节点的大小比较均相等, 那么就认为是大小相等的树
+      return 0;
+    }
   }
 }
