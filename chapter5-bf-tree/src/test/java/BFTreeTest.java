@@ -49,4 +49,20 @@ public class BFTreeTest {
     System.out.println(integerBFTree.toList());
     System.out.println(integerBFTree);
   }
+
+  /**
+   * 比较两棵树的大小(自定义比较)
+   */
+  @Test
+  public void compareToTest() {
+    BFTree<Integer> integerBFTree = new BFTree<>();
+    BFTree<Integer> integerBFTree1 = new BFTree<>();
+    // fill data
+    Stream.generate(() -> (int) ((Math.random()) * 100)).limit(20).forEach(integerBFTree::insertNode);
+    Stream.generate(() -> (int) ((Math.random()) * 100)).limit(20).forEach(integerBFTree1::insertNode);
+
+    System.out.println(integerBFTree.compareTo(integerBFTree)); // 0
+    System.out.println(integerBFTree.compareTo(integerBFTree1));
+    System.out.println(integerBFTree1.compareTo(integerBFTree));
+  }
 }
