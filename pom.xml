@@ -12,8 +12,9 @@
     <module>chapter1-linear-list</module>
     <module>chapter2-stack</module>
     <module>chapter3-link-circle-queue</module>
-      <module>chapter4-str-test</module>
+    <module>chapter4-str-test</module>
     <module>chapter5-bf-tree</module>
+    <module>chapter-math-exercising</module>
   </modules>
 
   <properties>
