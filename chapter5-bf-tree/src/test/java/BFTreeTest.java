@@ -40,4 +40,13 @@ public class BFTreeTest {
       System.out.print(integer + "\t");
     }
   }
+
+  @Test
+  public void toListAndToStringTest() {
+    BFTree<Integer> integerBFTree = new BFTree<>();
+    // fill data
+    Stream.generate(() -> (int) ((Math.random()) * 100)).limit(20).forEach(integerBFTree::insertNode);
+    System.out.println(integerBFTree.toList());
+    System.out.println(integerBFTree);
+  }
 }
