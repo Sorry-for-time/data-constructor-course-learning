@@ -124,4 +124,12 @@ public class BFTree<T extends Comparable<T>> implements Serializable, Iterable<T
     TreeNode<T> start = this.root;
     dorTraverse(start, action);
   }
+
+  @Override
+  public String toString() {
+    return "BFTree{" +
+      "root=" + root +
+      ", length=" + length +
+      '}';
+  }
 }
