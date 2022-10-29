@@ -26,4 +26,18 @@ public class BFTreeTest {
     System.out.println();
     System.out.println(integerBFTree);
   }
+
+  @Test
+  public void traversTest() {
+    BFTree<Integer> integerBFTree = new BFTree<>();
+    // fill data
+    Stream.generate(() -> (int) ((Math.random()) * 100)).limit(20).forEach(integerBFTree::insertNode);
+    // use foreach
+    integerBFTree.forEach(e -> System.out.print(e + "\t"));
+    System.out.println();
+    // use iterator
+    for (Integer integer : integerBFTree) {
+      System.out.print(integer + "\t");
+    }
+  }
 }
