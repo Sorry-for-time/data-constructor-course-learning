@@ -65,4 +65,18 @@ public class BFTreeTest {
     System.out.println(integerBFTree.compareTo(integerBFTree1));
     System.out.println(integerBFTree1.compareTo(integerBFTree));
   }
+
+  /**
+   * 将树置空设置
+   */
+  @Test
+  public void clearTreeTest() {
+    BFTree<Integer> integerBFTree = new BFTree<>();
+    Stream.generate(() -> (int) ((Math.random()) * 100)).limit(20).forEach(integerBFTree::insertNode);
+    System.out.println("树的节点数: " + integerBFTree.getLength());
+    System.out.println(integerBFTree);
+    integerBFTree.clear();
+    System.out.println("树的节点数" + integerBFTree.getLength());
+    System.out.println(integerBFTree);
+  }
 }
