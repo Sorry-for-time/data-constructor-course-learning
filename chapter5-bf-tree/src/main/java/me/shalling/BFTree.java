@@ -76,6 +76,14 @@ public class BFTree<T extends Comparable<T>> implements Serializable, Iterable<T
   }
 
   /**
+   * 置空树
+   */
+  public void clear() {
+    this.root = null;
+    this.length = 0;
+  }
+
+  /**
    * 通过递归执行中序遍历
    *
    * @param start    遍历起点
