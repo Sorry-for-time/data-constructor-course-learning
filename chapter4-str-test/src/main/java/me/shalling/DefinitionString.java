@@ -242,6 +242,39 @@ public class DefinitionString implements Serializable, Comparable<DefinitionStri
     return new DefinitionString(chars);
   }
 
+  /**
+   * 根据指定的位置删除连续诺干个字符
+   *
+   * @param deleteStart 删除的起始位置
+   * @param continuous  删除字符的连续个数
+   * @return 重新拼接完的字符
+   */
+  public DefinitionString delete(final int deleteStart, final int continuous) {
+    int mallocSize = 0;
+    // 如果连续删除的字符数量已经到达字串末尾的情况
+    if (deleteStart + continuous >= strBuffers.length) {
+      mallocSize = strBuffers.length - deleteStart;
+    }
+    // 如果删除的只是中间的某一部分, 删除后仍然有部分剩余
+    else {
+      mallocSize = strBuffers.length - continuous;
+    }
+    char[] chars = new char[mallocSize];
+    // 记录填充下标的位置
+    int eachIndex = 0;
+    for (; eachIndex < deleteStart; eachIndex++) {
+      chars[eachIndex] = strBuffers[eachIndex];
+    }
+    // 如果删除连续字符后仍然有诺干个字符的情况, 那么填充回去
+    if (deleteStart + continuous < strBuffers.length) {
+      int cutSlicePoint = deleteStart + continuous;
+      for (; cutSlicePoint < strBuffers.length; cutSlicePoint++, eachIndex++) {
+        chars[eachIndex] = strBuffers[cutSlicePoint];
+      }
+    }
+    return new DefinitionString(chars);
+  }
+
   @Override
   public int compareTo(DefinitionString o) {
     // 首先调用 equals 判断, 如果就是相同对象, 直接返回 0
