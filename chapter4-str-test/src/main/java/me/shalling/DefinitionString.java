@@ -22,11 +22,6 @@ public class DefinitionString implements Serializable, Comparable<DefinitionStri
   private final char[] strBuffers;
 
   /**
-   * 自定义字符串的长度
-   */
-  private final int strLength;
-
-  /**
    * 根据传入的字符数组创建一个字符串(注: 新建的字符串与传入的字符数组并不会有堆内存上的关联, 它们是完全独立的实体)
    *
    * @param chars 用以简历字符串的字符数组参考值
@@ -35,7 +30,6 @@ public class DefinitionString implements Serializable, Comparable<DefinitionStri
     this.strBuffers = new char[chars.length];
     // 进行独立拷贝, 防止引用改变带来的结构破坏
     System.arraycopy(chars, 0, this.strBuffers, 0, this.strBuffers.length);
-    this.strLength = chars.length;
   }
 
   /**
@@ -68,7 +62,7 @@ public class DefinitionString implements Serializable, Comparable<DefinitionStri
   }
 
   public int length() {
-    return this.strLength;
+    return this.strBuffers.length;
   }
 
   /**
@@ -79,7 +73,7 @@ public class DefinitionString implements Serializable, Comparable<DefinitionStri
    * @return 截取的子串
    */
   public DefinitionString subStr(final int indexStart, final int indexEnd) {
-    if (indexStart < 0 || indexEnd > strLength) {
+    if (indexStart < 0 || indexEnd > strBuffers.length) {
       throw new RuntimeException("index out of bound");
     }
     char[] chars = new char[indexEnd - indexStart];
@@ -113,7 +107,7 @@ public class DefinitionString implements Serializable, Comparable<DefinitionStri
    */
   public DefinitionString replace(char matchStr, char replaceStr) {
     int count = 0;
-    char[] newStrBuffer = new char[this.strLength];
+    char[] newStrBuffer = new char[strBuffers.length];
     System.arraycopy(this.strBuffers, 0, newStrBuffer, 0, newStrBuffer.length);
     while (count < newStrBuffer.length) {
       if (newStrBuffer[count] == matchStr) {
@@ -127,7 +121,7 @@ public class DefinitionString implements Serializable, Comparable<DefinitionStri
 
   public DefinitionString replaceAll(char matchStr, char replaceStr) {
     int count = 0;
-    char[] newStrBuffer = new char[this.strLength];
+    char[] newStrBuffer = new char[this.strBuffers.length];
     System.arraycopy(this.strBuffers, 0, newStrBuffer, 0, newStrBuffer.length);
     while (count < newStrBuffer.length) {
       if (newStrBuffer[count] == matchStr) {
@@ -146,7 +140,7 @@ public class DefinitionString implements Serializable, Comparable<DefinitionStri
    * @return 插入指定位置后的新字符串实例
    */
   public DefinitionString insertIntoByLocation(int insertLocation, DefinitionString newStr) {
-    int newStrLength = newStr.strLength + this.strLength;
+    int newStrLength = newStr.strBuffers.length + this.strBuffers.length;
     char[] strBuffer = new char[newStrLength];
     int start = 0;
     int oldStrReadLength = 0;
@@ -179,7 +173,7 @@ public class DefinitionString implements Serializable, Comparable<DefinitionStri
    */
   public char[] toCharArray() {
     char[] chars = new char[strBuffers.length];
-    System.arraycopy(this.strBuffers, 0, chars, 0, strLength);
+    System.arraycopy(this.strBuffers, 0, chars, 0, strBuffers.length);
     return chars;
   }
 
@@ -319,14 +313,14 @@ public class DefinitionString implements Serializable, Comparable<DefinitionStri
     // java16 对 instanceof 语法进行了加强, 允许直接使用模式变量, 如下的 definitionStr
     // 可以简单理解为在判断类型成功后提供一个进行类型强转的变量, 方便后续操作
     if (!(o instanceof DefinitionString definitionStr)) return false;
-    if (strLength != definitionStr.strLength) return false;
+    if (strBuffers.length != definitionStr.strBuffers.length) return false;
     return Arrays.equals(strBuffers, definitionStr.strBuffers);
   }
 
   @Override
   public int hashCode() {
     int result = Arrays.hashCode(strBuffers);
-    result = 31 * result + strLength;
+    result = 31 * result + strBuffers.length;
     return result;
   }
 
