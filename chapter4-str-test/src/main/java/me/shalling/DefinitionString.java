@@ -224,6 +224,24 @@ public class DefinitionString implements Serializable, Comparable<DefinitionStri
     return -1;
   }
 
+  /**
+   * 对字符串进行就地复制拼接操作
+   *
+   * @param count 重复次数
+   * @return 重复拼接完成后的字符串
+   */
+  public DefinitionString repeat(final int count) {
+    // 创建进行重复拼接所需的字符数组
+    char[] chars = new char[strBuffers.length * count];
+    int eachIndex = 0;
+    for (int i = 0; i < count; ++i) {
+      for (int j = 0; j < strBuffers.length; j++, eachIndex++) {
+        chars[eachIndex] = strBuffers[j];
+      }
+    }
+    return new DefinitionString(chars);
+  }
+
   @Override
   public int compareTo(DefinitionString o) {
     // 首先调用 equals 判断, 如果就是相同对象, 直接返回 0
