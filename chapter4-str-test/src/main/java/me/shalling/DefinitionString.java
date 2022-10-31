@@ -262,7 +262,13 @@ public class DefinitionString implements Serializable, Comparable<DefinitionStri
    * @return 重新拼接完的字符
    */
   public DefinitionString delete(final int deleteStart, final int continuous) {
-    int mallocSize = 0;
+    if (deleteStart < 0 || continuous < 0) { /* 非法下标那么抛出异常 */
+      throw new RuntimeException("ERROR DELETE_START OR CONTINUOUS PARAM");
+    }
+    if (continuous == 0) { /*  如果实际上并不进行删除操作, 那么返回新的拷贝即可 */
+      return new DefinitionString(this);
+    }
+    int mallocSize;
     // 如果连续删除的字符数量已经到达字串末尾的情况
     if (deleteStart + continuous >= strBuffers.length) {
       mallocSize = strBuffers.length - deleteStart;
