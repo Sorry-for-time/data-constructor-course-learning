@@ -97,4 +97,12 @@ public class DefinitionStringTest {
   public void concatTest() {
     System.out.println(originStr.concat(originStr));
   }
+
+  /**
+   * 字符串重复拼接测试
+   */
+  @Test
+  public void repeatTest() {
+    System.out.println(originStr.repeat(3)); // how howhow howhow how
+  }
 }
