@@ -26,6 +26,11 @@ public class DefinitionString implements Serializable, Comparable<DefinitionStri
    */
   private final int strLength;
 
+  /**
+   * 根据传入的字符数组创建一个字符串(注: 新建的字符串与传入的字符数组并不会有堆内存上的关联, 它们是完全独立的实体)
+   *
+   * @param chars 用以简历字符串的字符数组参考值
+   */
   public DefinitionString(char[] chars) {
     this.strBuffers = new char[chars.length];
     // 进行独立拷贝, 防止引用改变带来的结构破坏
@@ -33,6 +38,11 @@ public class DefinitionString implements Serializable, Comparable<DefinitionStri
     this.strLength = chars.length;
   }
 
+  /**
+   * 根据一个已存在的字符串创建一个独立拷贝
+   *
+   * @param definitionString 已有的字符串
+   */
   public DefinitionString(DefinitionString definitionString) {
     this(definitionString.strBuffers);
   }
@@ -209,6 +219,8 @@ public class DefinitionString implements Serializable, Comparable<DefinitionStri
     for (int i = 0; i < strBuffers.length; ++i) {
       // 暴力 for 循环进行每个字符的比较
       for (int j = 0; j < matchChars.length; ++j) {
+        // 如果父串参与比较的剩余字符数小于进行匹配的子串, 那么直接终止比较
+        if (strBuffers.length - i < matchChars.length) return -1;
         if (matchChars[j] == strBuffers[i + j]) {
           count++;
         }
