@@ -105,4 +105,13 @@ public class DefinitionStringTest {
   public void repeatTest() {
     System.out.println(originStr.repeat(3)); // how howhow howhow how
   }
+
+  /**
+   * 字符串删除指定位置连续个数字符测试
+   */
+  @Test
+  public void deleteTest() {
+    System.out.println(originStr); // how how
+    System.out.println(originStr.delete(2, 2)); // hohow
+  }
 }
