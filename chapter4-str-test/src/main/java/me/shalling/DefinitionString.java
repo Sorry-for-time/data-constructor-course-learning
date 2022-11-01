@@ -200,21 +200,20 @@ public class DefinitionString implements Serializable, Comparable<DefinitionStri
    * @brief 实现上: 暴力 for 循环逐一比较
    */
   public int indexOf(final DefinitionString matchStr) {
-    char[] matchChars = matchStr.toCharArray();
-    // 如果参与比较的字符串长度为 0, 直接返回;
-    if (matchChars.length == 0) {
+    // 如果参与比较的子符串长度为 0, 直接返回 0;
+    if (matchStr.length() == 0) {
       return 0;
     }
-    // 如果原始字符串的长度小于参与匹配的字符串, 那么直接返回
-    if (this.strBuffers.length < matchChars.length) {
+    // 如果原始字符串的长度小于参与匹配的字串长度, 那么直接返回 -1
+    if (this.length() < matchStr.length()) {
       return -1;
     }
+    char[] matchChars = matchStr.toCharArray();
     int count = 0;
-    for (int i = 0; i < strBuffers.length; ++i) {
+    // 如果父串参与比较的剩余字符数小于进行匹配的子串, 那么直接终止比较
+    for (int i = 0; strBuffers.length - i >= matchChars.length; ++i) {
       // 暴力 for 循环进行每个字符的比较
       for (int j = 0; j < matchChars.length; ++j) {
-        // 如果父串参与比较的剩余字符数小于进行匹配的子串, 那么直接终止比较
-        if (strBuffers.length - i < matchChars.length) return -1;
         if (matchChars[j] == strBuffers[i + j]) {
           count++;
         }
