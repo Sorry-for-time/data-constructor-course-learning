@@ -114,4 +114,18 @@ public class DefinitionStringTest {
     System.out.println(originStr); // how how
     System.out.println(originStr.delete(2, 2)); // hohow
   }
+
+  /**
+   * 自定义字符串 strip() 测试
+   */
+  @Test
+  public void trimTest() {
+    DefinitionString definitionString = new DefinitionString(new char[]{'\t', '\n', '\r', 'h', 'o', 'w', '\t', '!', '\t'});
+    System.out.println("->" + definitionString + "<-");
+    // test built-in trim method
+    System.out.println("->" + definitionString.strip() + "<-");
+    // 边界测试
+    System.out.println("->" + definitionString.subStr(0, 0) + "<-");
+    System.out.println("->" + definitionString.subStr(0, 0).strip() + "<-");
+  }
 }
