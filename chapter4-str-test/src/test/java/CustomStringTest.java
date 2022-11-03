@@ -1,23 +1,23 @@
-import me.shalling.DefinitionString;
+import me.shalling.CustomString;
 import org.junit.jupiter.api.Test;
 
 /**
  * @author Shalling
  * @version v0.01
- * @description <h1>DefinitionStringTest</h1>
+ * @description <h1>CustomStringTest</h1>
  * @see <a href="https://github.com/Sorry-for-time">follow me on github</a>
  * @since 2022/10/24 15:38
  */
-public class DefinitionStringTest {
+public class CustomStringTest {
   private final static char[] chars = {'h', 'o', 'w', ' ', 'h', 'o', 'w'};
-  private final static DefinitionString originStr = new DefinitionString(chars);
+  private final static CustomString originStr = new CustomString(chars);
 
   /**
    * 构建自定义字符串和重写 toSting() 方法测试
    */
   @Test
   public void buildAndToStringTest() {
-    DefinitionString definitionString = new DefinitionString(originStr);
+    CustomString definitionString = new CustomString(originStr);
     System.out.println(definitionString);
   }
 
@@ -26,7 +26,7 @@ public class DefinitionStringTest {
    */
   @Test
   public void replaceTest() {
-    DefinitionString replaceStr = originStr.replace('w', 'W');
+    CustomString replaceStr = originStr.replace('w', 'W');
     System.out.println(replaceStr);
   }
 
@@ -35,13 +35,13 @@ public class DefinitionStringTest {
    */
   @Test
   public void replaceAllTest() {
-    DefinitionString replaceStr = originStr.replaceAll('h', 'H');
+    CustomString replaceStr = originStr.replaceAll('h', 'H');
     System.out.println(replaceStr);
   }
 
   @Test
   public void insertIntoByLocationTest() {
-    DefinitionString newStr = originStr.insertIntoByLocation(originStr.length() - 2, originStr);
+    CustomString newStr = originStr.insertIntoByLocation(originStr.length() - 2, originStr);
     System.out.println(newStr);
   }
 
@@ -58,11 +58,11 @@ public class DefinitionStringTest {
    */
   @Test
   public void indexOfDefineStringTest() {
-    final DefinitionString compareStr = new DefinitionString(new char[]{' ', 'h', 'o'});
+    final CustomString compareStr = new CustomString(new char[]{' ', 'h', 'o'});
     System.out.println(originStr.indexOf(compareStr)); // 3
-    final DefinitionString compareStr1 = new DefinitionString(new char[]{' ', 'h', 'e'});
+    final CustomString compareStr1 = new CustomString(new char[]{' ', 'h', 'e'});
     System.out.println(originStr.indexOf(compareStr1)); // -1
-    final DefinitionString compareStr2 = new DefinitionString(new char[]{'h', 'o'});
+    final CustomString compareStr2 = new CustomString(new char[]{'h', 'o'});
     System.out.println(originStr.indexOf(compareStr2)); // 0
   }
 
@@ -120,7 +120,7 @@ public class DefinitionStringTest {
    */
   @Test
   public void trimTest() {
-    DefinitionString definitionString = new DefinitionString(new char[]{'\t', '\n', '\r', 'h', 'o', 'w', '\t', '!', '\t'});
+    CustomString definitionString = new CustomString(new char[]{'\t', '\n', '\r', 'h', 'o', 'w', '\t', '!', '\t'});
     System.out.println("->" + definitionString + "<-");
     // test built-in trim method
     System.out.println("->" + definitionString.strip() + "<-");

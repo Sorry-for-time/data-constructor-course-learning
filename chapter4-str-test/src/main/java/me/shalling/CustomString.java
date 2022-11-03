@@ -12,7 +12,7 @@ import java.util.Arrays;
  * @see <a href="https://github.com/Sorry-for-time">follow me on github</a>
  * @since 2022/10/24 14:47
  */
-public class DefinitionString implements Serializable, Comparable<DefinitionString> {
+public class CustomString implements Serializable, Comparable<CustomString> {
   @Serial
   private static final long serialVersionUID = 1421462135553039727L;
 
@@ -26,7 +26,7 @@ public class DefinitionString implements Serializable, Comparable<DefinitionStri
    *
    * @param chars 用以简历字符串的字符数组参考值
    */
-  public DefinitionString(char[] chars) {
+  public CustomString(char[] chars) {
     this.strBuffers = new char[chars.length];
     // 进行独立拷贝, 防止引用改变带来的结构破坏
     System.arraycopy(chars, 0, this.strBuffers, 0, this.strBuffers.length);
@@ -37,7 +37,7 @@ public class DefinitionString implements Serializable, Comparable<DefinitionStri
    *
    * @param definitionString 已有的字符串
    */
-  public DefinitionString(DefinitionString definitionString) {
+  public CustomString(CustomString definitionString) {
     this(definitionString.strBuffers);
   }
 
@@ -48,7 +48,7 @@ public class DefinitionString implements Serializable, Comparable<DefinitionStri
    * @param str2 第二个自定义字符串
    * @return 拼接完成的字符数组
    */
-  private static char[] joinStrArr(DefinitionString str1, DefinitionString str2) {
+  private static char[] joinStrArr(CustomString str1, CustomString str2) {
     int strBufferLength = str1.length() + str2.length();
     char[] chars = new char[strBufferLength];
     int i = 0;
@@ -72,7 +72,7 @@ public class DefinitionString implements Serializable, Comparable<DefinitionStri
    * @param indexEnd   终点位置
    * @return 截取的子串
    */
-  public DefinitionString subStr(final int indexStart, final int indexEnd) {
+  public CustomString subStr(final int indexStart, final int indexEnd) {
     if (indexStart < 0 || indexEnd > strBuffers.length) {
       throw new RuntimeException("index out of bound");
     }
@@ -80,7 +80,7 @@ public class DefinitionString implements Serializable, Comparable<DefinitionStri
     for (int i = 0, record = indexStart; i < indexEnd - indexStart; ++i, ++record) {
       chars[i] = strBuffers[record];
     }
-    return new DefinitionString(chars);
+    return new CustomString(chars);
   }
 
   /**
@@ -105,7 +105,7 @@ public class DefinitionString implements Serializable, Comparable<DefinitionStri
    * @param replaceStr 进行替换的字符
    * @return 新建的自定义字符串
    */
-  public DefinitionString replace(char matchStr, char replaceStr) {
+  public CustomString replace(char matchStr, char replaceStr) {
     int count = 0;
     char[] newStrBuffer = new char[strBuffers.length];
     System.arraycopy(this.strBuffers, 0, newStrBuffer, 0, newStrBuffer.length);
@@ -116,10 +116,10 @@ public class DefinitionString implements Serializable, Comparable<DefinitionStri
       }
       count++;
     }
-    return new DefinitionString(newStrBuffer);
+    return new CustomString(newStrBuffer);
   }
 
-  public DefinitionString replaceAll(char matchStr, char replaceStr) {
+  public CustomString replaceAll(char matchStr, char replaceStr) {
     int count = 0;
     char[] newStrBuffer = new char[this.strBuffers.length];
     System.arraycopy(this.strBuffers, 0, newStrBuffer, 0, newStrBuffer.length);
@@ -129,7 +129,7 @@ public class DefinitionString implements Serializable, Comparable<DefinitionStri
       }
       count++;
     }
-    return new DefinitionString(newStrBuffer);
+    return new CustomString(newStrBuffer);
   }
 
   /**
@@ -139,7 +139,7 @@ public class DefinitionString implements Serializable, Comparable<DefinitionStri
    * @param newStr         进行拼接的字符串
    * @return 插入指定位置后的新字符串实例
    */
-  public DefinitionString insertIntoByLocation(int insertLocation, DefinitionString newStr) {
+  public CustomString insertIntoByLocation(int insertLocation, CustomString newStr) {
     int newStrLength = newStr.strBuffers.length + this.strBuffers.length;
     char[] strBuffer = new char[newStrLength];
     int start = 0;
@@ -153,7 +153,7 @@ public class DefinitionString implements Serializable, Comparable<DefinitionStri
     for (int j = 0; start < newStrLength; ++start, ++j, ++oldStrReadLength) {
       strBuffer[start] = this.strBuffers[oldStrReadLength];
     }
-    return new DefinitionString(strBuffer);
+    return new CustomString(strBuffer);
   }
 
   /**
@@ -162,8 +162,8 @@ public class DefinitionString implements Serializable, Comparable<DefinitionStri
    * @param joinStr 拼接串
    * @return 拼接完的的自定义字符串
    */
-  public DefinitionString concat(DefinitionString joinStr) {
-    return new DefinitionString(joinStrArr(this, joinStr));
+  public CustomString concat(CustomString joinStr) {
+    return new CustomString(joinStrArr(this, joinStr));
   }
 
   /**
@@ -199,7 +199,7 @@ public class DefinitionString implements Serializable, Comparable<DefinitionStri
    * @return 子串首次出现的位置
    * @brief 实现上: 暴力 for 循环逐一比较
    */
-  public int indexOf(final DefinitionString matchStr) {
+  public int indexOf(final CustomString matchStr) {
     // 如果参与比较的子符串长度为 0, 直接返回 0;
     if (matchStr.length() == 0) {
       return 0;
@@ -235,7 +235,7 @@ public class DefinitionString implements Serializable, Comparable<DefinitionStri
    * @param count 重复次数
    * @return 重复拼接完成后的字符串
    */
-  public DefinitionString repeat(final int count) {
+  public CustomString repeat(final int count) {
     // 创建进行重复拼接所需的字符数组
     char[] chars = new char[strBuffers.length * count];
     int eachIndex = 0;
@@ -244,7 +244,7 @@ public class DefinitionString implements Serializable, Comparable<DefinitionStri
         chars[eachIndex] = strBuffers[j];
       }
     }
-    return new DefinitionString(chars);
+    return new CustomString(chars);
   }
 
   /**
@@ -254,12 +254,12 @@ public class DefinitionString implements Serializable, Comparable<DefinitionStri
    * @param continuous  删除字符的连续个数
    * @return 重新拼接完的字符
    */
-  public DefinitionString delete(final int deleteStart, final int continuous) {
+  public CustomString delete(final int deleteStart, final int continuous) {
     if (deleteStart < 0 || continuous < 0) { /* 非法下标那么抛出异常 */
       throw new RuntimeException("ERROR DELETE_START OR CONTINUOUS PARAM");
     }
     if (continuous == 0) { /*  如果实际上并不进行删除操作, 那么返回新的拷贝即可 */
-      return new DefinitionString(this);
+      return new CustomString(this);
     }
     int mallocSize;
     // 如果连续删除的字符数量已经到达字串末尾的情况
@@ -283,7 +283,7 @@ public class DefinitionString implements Serializable, Comparable<DefinitionStri
         chars[eachIndex] = strBuffers[cutSlicePoint];
       }
     }
-    return new DefinitionString(chars);
+    return new CustomString(chars);
   }
 
   /**
@@ -291,9 +291,9 @@ public class DefinitionString implements Serializable, Comparable<DefinitionStri
    *
    * @return 去除首位空格的字符串
    */
-  public DefinitionString strip() {
+  public CustomString strip() {
     if (this.length() == 0) {
-      return new DefinitionString(this);
+      return new CustomString(this);
     }
     char s = '\u0020';
     int startOffset = 0;
@@ -316,7 +316,7 @@ public class DefinitionString implements Serializable, Comparable<DefinitionStri
   }
 
   @Override
-  public int compareTo(DefinitionString o) {
+  public int compareTo(CustomString o) {
     // 首先调用 equals 判断, 如果就是相同对象, 直接返回 0
     if (this.equals(o)) {
       return 0;
@@ -340,7 +340,7 @@ public class DefinitionString implements Serializable, Comparable<DefinitionStri
     if (this == o) return true;
     // java16 对 instanceof 语法进行了加强, 允许直接使用模式变量, 如下的 definitionStr
     // 可以简单理解为在判断类型成功后提供一个进行类型强转的变量, 方便后续操作
-    if (!(o instanceof DefinitionString definitionStr)) return false;
+    if (!(o instanceof CustomString definitionStr)) return false;
     if (strBuffers.length != definitionStr.strBuffers.length) return false;
     return Arrays.equals(strBuffers, definitionStr.strBuffers);
   }
