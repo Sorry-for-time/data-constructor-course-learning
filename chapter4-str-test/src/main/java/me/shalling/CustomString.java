@@ -84,6 +84,17 @@ public class CustomString implements Serializable, Comparable<CustomString> {
   }
 
   /**
+   * 这个方法与 subStr(int start, int end) 等价, 作为兼容选项出现
+   *
+   * @param indexStart 起始位置
+   * @param indexEnd   终点位置
+   * @return 截取的子串
+   */
+  public CustomString subString(final int indexStart, final int indexEnd) {
+    return subStr(indexStart, indexEnd);
+  }
+
+  /**
    * 返回指定位置截取的字符串子串数组(注: 截取方式为左闭右开, 起始位置从 0 开始)
    *
    * @param indexStart 起始位置

@@ -80,6 +80,10 @@ public class CustomStringTest {
   @Test
   public void subStrTest() {
     System.out.println(originStr.subStr(1, 5));
+    System.out.println(originStr.subString(1, 5));
+    System.out.println(
+      originStr.subString(1, 5)
+        .equals(originStr.subStr(1, 5))); // true
   }
 
   /**
