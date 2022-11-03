@@ -286,6 +286,35 @@ public class DefinitionString implements Serializable, Comparable<DefinitionStri
     return new DefinitionString(chars);
   }
 
+  /**
+   * 返回一个去除首位空格的字符串, 这个方法会去除首尾小于: <code style="color: yellow">'u0020'</code> 的所有字符, 并返回一个新的截取字符
+   *
+   * @return 去除首位空格的字符串
+   */
+  public DefinitionString strip() {
+    if (this.length() == 0) {
+      return new DefinitionString(this);
+    }
+    char s = '\u0020';
+    int startOffset = 0;
+    int endOffset = this.length() - 1;
+    for (int i = 0; i < this.length(); i++) {
+      if (this.strBuffers[i] <= s) {
+        startOffset++;
+      } else {
+        break;
+      }
+    }
+    for (int i = this.length() - 1; i >= 0; i--) {
+      if (this.strBuffers[i] <= s) {
+        endOffset--;
+      } else {
+        break;
+      }
+    }
+    return subStr(startOffset, endOffset + 1);
+  }
+
   @Override
   public int compareTo(DefinitionString o) {
     // 首先调用 equals 判断, 如果就是相同对象, 直接返回 0
