@@ -1,6 +1,7 @@
 package me.shalling;
 
 import lombok.Getter;
+import lombok.NonNull;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -81,6 +82,58 @@ public class BFTree<T extends Comparable<T>> implements Serializable, Iterable<T
   public void clear() {
     this.root = null;
     this.length = 0;
+  }
+
+  /**
+   * 当前树是否为空
+   *
+   * @return 如果树为空, 返回 true, 否则返回 false
+   */
+  public boolean isEmpty() {
+    return null == this.root;
+  }
+
+  /**
+   * 删除树中匹配的节点
+   *
+   * @param matchValue 进行匹配的值
+   * @return 被删除节点数据域的值
+   */
+  public void delete(@NonNull T matchValue) {
+    // 0.如果是一棵空树, 则直接返回, 什么也不做
+    if (this.isEmpty()) {
+      return;
+    }
+
+    // 删除的节点是根节点的情况
+    if (this.root.getDataDomain().compareTo(matchValue) == 0) {
+      // 1.树中只存在一个根节点, 左右子树均为空的情况
+      if (this.root.getLeftChild() == null && this.root.getRightChild() == null) {
+        this.root = null;
+      }
+      // 2.左子树不为空, 右子树为空情况
+      else if (this.root.getLeftChild() != null && this.root.getRightChild() == null) {
+        this.root = this.root.getLeftChild();
+      }
+      // 3.左子树为空, 右子树不为空情况
+      else if (this.root.getLeftChild() == null && this.root.getRightChild() != null) {
+        this.root = this.root.getRightChild();
+      }
+      // 4.左右子树均不为空的情况
+      else {
+        var leftChild = this.root.getLeftChild();
+        // 取得左子树的右叶子节点
+        while (leftChild.getRightChild() != null) {
+          leftChild = leftChild.getRightChild();
+        }
+        // 将根节点右子树移动到根节点左子树的右叶子节点上
+        leftChild.setRightChild(this.root.getRightChild());
+        // 更新 root 节点的引用
+        this.root = this.root.getLeftChild();
+      }
+      // 更新节点记录
+      --this.length;
+    }
   }
 
   /**
