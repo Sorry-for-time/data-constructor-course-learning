@@ -230,8 +230,10 @@ public class CustomString implements Serializable, Comparable<CustomString> {
         }
         // 如果不匹配, 直接中断本次循环比对
         else if (matchChars[j] != strBuffers[i]) {
+          count = 0; /* 如果遇到不匹配的字符, 重置之前的计数 */
           break;
         }
+        // 如果查找的字符匹配数和子串相等, 那么返回进行比较的其起始位置(即子串首次出现在原始串中的位置)
         if (count == matchChars.length) {
           return i;
         }
