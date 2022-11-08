@@ -1,4 +1,5 @@
 import me.shalling.CustomString;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -54,16 +55,25 @@ public class CustomStringTest {
   }
 
   /**
-   * 取得子串主字符串中首次出现的位置
+   * 取得子串在原始字符串中首次出现的位置
    */
   @Test
   public void indexOfDefineStringTest() {
     final CustomString compareStr = new CustomString(new char[]{' ', 'h', 'o'});
-    System.out.println(originStr.indexOf(compareStr)); // 3
+    int indexOf1 = originStr.indexOf(compareStr);
+    System.out.println(indexOf1);
+    Assertions.assertEquals(3, indexOf1);
+
     final CustomString compareStr1 = new CustomString(new char[]{' ', 'h', 'e'});
-    System.out.println(originStr.indexOf(compareStr1)); // -1
+    int indexOf2 = originStr.indexOf(compareStr1);
+    System.out.println(indexOf2);
+    Assertions.assertEquals(-1, indexOf2);
+
+
     final CustomString compareStr2 = new CustomString(new char[]{'h', 'o'});
-    System.out.println(originStr.indexOf(compareStr2)); // 0
+    int indexOf3 = originStr.indexOf(compareStr2);
+    System.out.println(indexOf3);
+    Assertions.assertEquals(0, indexOf3);
   }
 
   /**
