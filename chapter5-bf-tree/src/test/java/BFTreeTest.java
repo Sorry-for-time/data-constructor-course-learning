@@ -1,6 +1,7 @@
 import me.shalling.BFTree;
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -78,5 +79,18 @@ public class BFTreeTest {
     integerBFTree.clear();
     System.out.println("树的节点数" + integerBFTree.getLength());
     System.out.println(integerBFTree);
+  }
+
+  /**
+   * 使用递归取得树的高度以及使用使用递归的方式插入新的节点
+   */
+  @Test
+  public void insertNodeByRecursionTest() {
+    var bfTree = new BFTree<Integer>();
+    var root = bfTree.getRoot();
+    final var arr = new int[]{23, 42, 11, 20, 10, 33, 43, 9, 13, 8, 7, 6, 6, 6, 23};
+    Arrays.stream(arr).forEachOrdered(e -> bfTree.insertNodeByRecursion(root, e));
+    System.out.println(bfTree.toList());
+    System.out.printf("树的高度: %d", bfTree.getTreeHeight(bfTree.getRoot(), 0)); // 树的高度: 7
   }
 }
