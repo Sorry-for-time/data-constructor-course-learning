@@ -209,8 +209,7 @@ public class BFTree<T extends Comparable<T>> implements Serializable, Iterable<T
    */
   public List<T> toList() {
     ArrayList<T> tArrayList = new ArrayList<>();
-    TreeNode<T> start = this.root;
-    dorTraverse(start, tArrayList::add);
+    this.midOrder(tArrayList::add);
     return Collections.unmodifiableList(tArrayList);
   }
 
