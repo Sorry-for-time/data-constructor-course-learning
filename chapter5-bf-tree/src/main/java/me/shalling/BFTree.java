@@ -25,6 +25,7 @@ public class BFTree<T extends Comparable<T>> implements Serializable, Iterable<T
   /**
    * 树根节点定义
    */
+  @Getter
   private TreeNode<T> root;
 
   /**
@@ -73,6 +74,59 @@ public class BFTree<T extends Comparable<T>> implements Serializable, Iterable<T
         }
       }
     }
+  }
+
+  /**
+   * 通过递归的方式插入新节点
+   *
+   * @param root 起始根节点
+   * @param data 新的元素
+   */
+  public void insertNodeByRecursion(TreeNode<T> root, final T data) {
+    // 如果根节点为空, 那么线进行赋值
+    if (this.root == null) {
+      this.root = new TreeNode<>(data);
+      ++this.length;
+      return;
+    }
+
+    // 更新 root 引用
+    if (root == null) {
+      root = this.root;
+    }
+
+    if (root.getDataDomain().compareTo(data) > 0) {
+      if (root.getLeftChild() == null) {
+        root.setLeftChild(new TreeNode<>(data));
+        ++this.length;
+      } else {
+        insertNodeByRecursion(root.getLeftChild(), data);
+      }
+    } else if (root.getDataDomain().compareTo(data) < 0) {
+      if (root.getRightChild() == null) {
+        root.setRightChild(new TreeNode<>(data));
+        ++this.length;
+      } else {
+        insertNodeByRecursion(root.getRightChild(), data);
+      }
+    }
+  }
+
+
+  /**
+   * 获取树的高度
+   *
+   * @param root        递归变量起点
+   * @param startHeight 树高起始值
+   * @return 树高
+   */
+  public int getTreeHeight(final TreeNode<T> root, final int startHeight) {
+    if (root == null) {
+      return startHeight;
+    }
+    int leftHeight = getTreeHeight(root.getLeftChild(), startHeight + 1);
+    int rightHeight = getTreeHeight(root.getRightChild(), startHeight + 1);
+    return Math.max(leftHeight, rightHeight);
   }
 
   /**
