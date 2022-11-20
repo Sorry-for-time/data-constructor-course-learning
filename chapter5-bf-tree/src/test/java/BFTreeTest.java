@@ -93,4 +93,15 @@ public class BFTreeTest {
     System.out.println(bfTree.toList());
     System.out.printf("树的高度: %d", bfTree.getTreeHeight(bfTree.getRoot(), 0)); // 树的高度: 7
   }
+
+  @Test
+  public void preOrderTest() {
+    var bfTree = new BFTree<Integer>();
+    final var arr = new int[]{23, 42, 11, 20, 10, 33, 43, 9, 13, 8, 7, 6, 6, 6, 23};
+    Arrays.stream(arr).forEachOrdered(bfTree::insertNode);
+    System.out.println(bfTree.toList());
+    System.out.print("先根遍历结果: ");
+    bfTree.preOrder(v -> System.out.print(v + "\t"));
+    System.out.println();
+  }
 }
