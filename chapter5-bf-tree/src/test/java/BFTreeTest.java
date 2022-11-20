@@ -103,5 +103,7 @@ public class BFTreeTest {
     System.out.print("先根遍历结果: ");
     bfTree.preOrder(v -> System.out.print(v + "\t"));
     System.out.println();
+    System.out.print("中根遍历结果: ");
+    bfTree.midOrder(v -> System.out.print(v + "\t"));
   }
 }
