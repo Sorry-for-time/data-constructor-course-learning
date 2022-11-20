@@ -1,8 +1,7 @@
 package me.shalling;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.NonNull;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -16,8 +15,6 @@ import java.io.Serializable;
  * @since 2022/10/28 23:31
  */
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 public class TreeNode<T> implements Serializable {
   @Serial
   private static final long serialVersionUID = -4627185135285748306L;
@@ -25,7 +22,7 @@ public class TreeNode<T> implements Serializable {
   /**
    * 节点的数据域定义
    */
-  private T dataDomain;
+  private @NonNull T dataDomain;
 
   /**
    * 节点的左子树节点定义
@@ -36,4 +33,14 @@ public class TreeNode<T> implements Serializable {
    * 节点的右子树节点定义
    */
   private TreeNode<T> rightChild;
+
+  public TreeNode(@NonNull T dataDomain, TreeNode<T> leftChild, TreeNode<T> rightChild) {
+    this.dataDomain = dataDomain;
+    this.leftChild = leftChild;
+    this.rightChild = rightChild;
+  }
+
+  public TreeNode(@NonNull T dataDomain) {
+    this.dataDomain = dataDomain;
+  }
 }

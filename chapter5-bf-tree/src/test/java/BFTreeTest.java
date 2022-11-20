@@ -79,23 +79,4 @@ public class BFTreeTest {
     System.out.println("树的节点数" + integerBFTree.getLength());
     System.out.println(integerBFTree);
   }
-
-  /**
-   * 删除的节点为根节点的情况
-   */
-  @Test
-  public void deleteNodeIsRootTest() {
-    Integer[] integers = {23, 12, 24, 36, 18, 10, 13, 28};
-    BFTree<Integer> integerBFTree = new BFTree<>();
-    for (Integer integer : integers) {
-      integerBFTree.insertNode(integer);
-    }
-
-    integerBFTree.forEach(e -> System.out.print(e + "\t"));
-    System.out.println();
-    integerBFTree.delete(23);
-
-    integerBFTree.forEach(e -> System.out.print(e + "\t"));
-    System.out.println();
-  }
 }
