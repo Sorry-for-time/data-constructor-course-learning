@@ -182,6 +182,27 @@ public class BFTree<T extends Comparable<T>> implements Serializable, Iterable<T
   }
 
   /**
+   * 通过非递归的方式实现中序遍历 --> 左根右
+   *
+   * @param action 执行器
+   */
+  public void midOrder(Consumer<T> action) {
+    var tree = this.root;
+    var stack = new Stack<TreeNode<T>>();
+    while (tree != null || !stack.isEmpty()) {
+      while (tree != null) {
+        stack.push(tree); /* 将节点推到栈中 */
+        tree = tree.getLeftChild(); /* 更新元素指向下一个节点, 因为时中序遍历, 所以一样指向左边的节点 */
+      }
+      /* 进行回溯, 遇到 null 就继续返回上一层, 因为外层循环判断为真的条件也包括只要 stack 不为空就行
+       * 如果回溯到的节点不为空, 那么就表示其存在子树, 继续重复内层的 while 循环推到栈中
+       * */
+      tree = stack.peek().getRightChild();
+      action.accept(stack.pop().getDataDomain()); /* 将栈顶元素的数据用域的值传递给执行器函数 */
+    }
+  }
+
+  /**
    * 将树中的节点存储到列表上并进行返回, 这个列表的值为只读, 不允许进行修改
    *
    * @return 树中节点升序排列的只读列表
