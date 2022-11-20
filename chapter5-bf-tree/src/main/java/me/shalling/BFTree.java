@@ -4,10 +4,7 @@ import lombok.Getter;
 
 import java.io.Serial;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 import java.util.function.Consumer;
 
 /**
@@ -159,6 +156,28 @@ public class BFTree<T extends Comparable<T>> implements Serializable, Iterable<T
       dorTraverse(start.getLeftChild(), consumer);
       consumer.accept(start.getDataDomain());
       dorTraverse(start.getRightChild(), consumer);
+    }
+  }
+
+  /**
+   * 通过非递归的方式进行先序遍历 ---> 根左右
+   *
+   * @param action 执行器
+   */
+  public void preOrder(Consumer<T> action) {
+    final var stack = new Stack<TreeNode<T>>(); /* 记录节点遍历到的位置 */
+    var leftTree = this.root; /* 先取得树的根节点, 一开始遍历从根节点出发 */
+    // 只要节点不为空或者纪录栈不为空, 那么就重复操作
+    while (leftTree != null || !stack.empty()) {
+      // 如果左树不为空, 那么就一路到底往左节点前进, 进行深度遍历
+      while (leftTree != null) {
+        action.accept(leftTree.getDataDomain()); /* 如果左树不为空, 那么就将其数据域传递给消费者函数 */
+        stack.push(leftTree); /* 将当前节点推入到记录栈中, 因为后续要从中取出右节点进行遍历 */
+        leftTree = leftTree.getLeftChild(); /* 更新左树的引用指向为下一个节点 */
+      }
+
+      // 将左树引用指向栈顶元素的右子树(顺便弹出栈顶元素), 进行下一轮遍历
+      leftTree = stack.pop().getRightChild();
     }
   }
 
