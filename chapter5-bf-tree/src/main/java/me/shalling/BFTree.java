@@ -210,7 +210,7 @@ public class BFTree<T extends Comparable<T>> implements Serializable, Iterable<T
    * @param infer 参考值(要求实现了 comparable) 接口
    * @return 指定值的父节点, 如果不存在, 就返回 null
    */
-  public TreeNode<T> getNodeParentOrRootNode(@NonNull T infer) {
+  private TreeNode<T> getNodeParentOrRootNode(@NonNull T infer) {
     if (this.isEmpty()) {
       return null;
     }
