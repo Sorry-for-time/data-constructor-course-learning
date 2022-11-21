@@ -106,4 +106,30 @@ public class BFTreeTest {
     System.out.print("中根遍历结果: ");
     bfTree.midOrder(v -> System.out.print(v + "\t"));
   }
+
+  @Test
+  public void deleteTest() {
+    var bfTree = new BFTree<Integer>();
+    final var arr = new int[]{23, 42, 11, 20, 10, 33, 43, 9, 13, 8, 7, 6};
+    Arrays.stream(arr).forEachOrdered(bfTree::insertNode);
+    System.out.println("initial" + bfTree.toList());
+
+    bfTree.deleteNode(23);
+    System.out.println("delete 23" + bfTree.toList());
+
+    bfTree.deleteNode(23);
+    System.out.println("delete 23" + bfTree.toList());
+
+    bfTree.deleteNode(42);
+    System.out.println("delete 42" + bfTree.toList());
+
+    bfTree.deleteNode(20);
+    System.out.println("delete 20" + bfTree.toList());
+
+    bfTree.deleteNode(13);
+    System.out.println("delete 13" + bfTree.toList());
+
+    bfTree.deleteNode(10);
+    System.out.println("delete 10" + bfTree.toList());
+  }
 }
