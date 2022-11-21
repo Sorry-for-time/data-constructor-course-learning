@@ -247,6 +247,80 @@ public class BFTree<T extends Comparable<T>> implements Serializable, Iterable<T
     return null;
   }
 
+  public void deleteNode(@NonNull T infer) {
+    // 要删除的节点不存在的情况
+    var deleteNodeParent = this.getNodeParentOrRootNode(infer);
+    if (deleteNodeParent == null) {
+      return;
+    }
+
+    // 要删除的节点为根节点情况
+    if (deleteNodeParent == this.root) {
+      var endLeftLeaf = this.root.getLeftChild();
+      while (endLeftLeaf.getRightChild() != null) {
+        endLeftLeaf = endLeftLeaf.getRightChild();
+      }
+      endLeftLeaf.setRightChild(root.getRightChild()); /* 将根节点右子树移动到根节点左子树的右叶子节点上 */
+      this.root = this.root.getLeftChild(); /* 更新根节点 */
+      --this.length; /* 更新记录 */
+      return;
+    }
+
+    // 其它的情况(在左右子树内)
+    if (deleteNodeParent.getLeftChild().getDataDomain().compareTo(infer) == 0) {
+      var willDelete = deleteNodeParent.getLeftChild(); /* 需要进行删除的节点 */
+
+      // 如果要删除的节点为一个叶子节点的情况
+      if (willDelete.getLeftChild() == null && willDelete.getRightChild() == null) {
+        deleteNodeParent.setLeftChild(null);
+        --this.length;
+        return;
+      }
+
+      var joinPoint = willDelete.getLeftChild(); /* 要删除节点的左子树 */
+      var rightChildTree = willDelete.getRightChild(); /* 要删除节点的右子树 */
+      // 如果要删除的节点的左节点不为空
+      if (joinPoint != null) {
+        // 通过循环找到底部靠右侧的叶子节点
+        while (joinPoint.getRightChild() != null) {
+          joinPoint = joinPoint.getRightChild();
+        }
+        joinPoint.setRightChild(rightChildTree);
+        // 更新被删除的节点的父节点指向其删除节点的左孩子
+        deleteNodeParent.setLeftChild(willDelete.getLeftChild());
+      } else {
+        // 如果待删除节点的左子树为空, 那么直接将其父节点的左孩子更新为其删除节点的右孩子(被删除的节点的左子树的右子树的值一定比被删除节点父节点的右子树来得小)
+        deleteNodeParent.setLeftChild(rightChildTree);
+      }
+
+    }
+    // 删除节点为父节点右子树的情况
+    else {
+      var it = deleteNodeParent.getRightChild();
+      // 如果要删除的节点为一个叶子节点的情况
+      if (it.getLeftChild() == null && it.getRightChild() == null) {
+        deleteNodeParent.setRightChild(null);
+        --this.length;
+        return;
+      }
+
+      var joinPoint = it.getLeftChild(); /* 要删除节点的左子树 */
+      var rightChildTree = it.getRightChild(); /* 要删除节点的右子树 */
+      // 如果要删除的节点的左节点不为空
+      if (joinPoint != null) {
+        while (joinPoint.getRightChild() != null) {
+          joinPoint = joinPoint.getRightChild();
+        }
+        joinPoint.setRightChild(rightChildTree);
+        deleteNodeParent.setRightChild(rightChildTree);
+      } else {
+        deleteNodeParent.setRightChild(rightChildTree);
+      }
+    }
+    // 更新记录域
+    --this.length;
+  }
+
   /**
    * 将树中的节点存储到列表上并进行返回, 这个列表的值为只读, 不允许进行修改
    *
