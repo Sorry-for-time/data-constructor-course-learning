@@ -1,6 +1,7 @@
 package me.shalling;
 
 import lombok.Getter;
+import lombok.NonNull;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -200,6 +201,50 @@ public class BFTree<T extends Comparable<T>> implements Serializable, Iterable<T
       tree = stack.peek().getRightChild();
       action.accept(stack.pop().getDataDomain()); /* 将栈顶元素的数据用域的值传递给执行器函数 */
     }
+  }
+
+
+  /**
+   * 找出指定值的父节点, 如果恰好是根节点, 那么就返回父节点
+   *
+   * @param infer 参考值(要求实现了 comparable) 接口
+   * @return 指定值的父节点, 如果不存在, 就返回 null
+   */
+  public TreeNode<T> getNodeParentOrRootNode(@NonNull T infer) {
+    if (this.isEmpty()) {
+      return null;
+    }
+    var current = this.root;
+    while (current != null) {
+      if (current.getDataDomain().compareTo(infer) == 0) {
+        return current;
+      } else {
+        if (current.getDataDomain().compareTo(infer) > 0) {
+          if (current.getLeftChild() != null) {
+            if (current.getLeftChild().getDataDomain().compareTo(infer) == 0) {
+              return current;
+            } else {
+              current = current.getLeftChild();
+            }
+          } else {
+            break;
+          }
+        }
+        // 节点在右子树的情况
+        if (current.getDataDomain().compareTo(infer) < 0) {
+          if (current.getRightChild() != null) {
+            if (current.getRightChild().getDataDomain().compareTo(infer) == 0) {
+              return current;
+            } else {
+              current = current.getRightChild();
+            }
+          } else {
+            break;
+          }
+        }
+      }
+    }
+    return null;
   }
 
   /**
