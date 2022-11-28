@@ -1,4 +1,5 @@
 import me.shalling.BFTree;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
@@ -131,5 +132,23 @@ public class BFTreeTest {
 
     bfTree.deleteNode(10);
     System.out.println("delete 10" + bfTree.toList());
+  }
+
+  @Test
+  public void findNodeByValueTest() {
+    final var bftTree = new BFTree<Integer>(); /* 创建二叉树 */
+    int[] ints = {12, 123, 231, 12, 32123123, 31, 12, 31};
+    Arrays.stream(ints).forEachOrdered(bftTree::insertNode);
+    System.out.println(bftTree.toList()); /* 构建情况 */
+    /* 查找一个存在的节点 */
+    var res1 = bftTree.findNodeByValue(231).getDataDomain();
+    System.out.println(res1);
+
+    /* 查找一个不存在的节点 */
+    var res2 = bftTree.findNodeByValue(1312314123);
+    System.out.println(res2);
+
+    Assertions.assertEquals(231, res1);
+    Assertions.assertNull(res2);
   }
 }
