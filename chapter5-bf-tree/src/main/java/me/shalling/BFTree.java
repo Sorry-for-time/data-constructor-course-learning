@@ -247,6 +247,11 @@ public class BFTree<T extends Comparable<T>> implements Serializable, Iterable<T
     return null;
   }
 
+  /**
+   * 根据指定的值域删除树中已经存在的节点
+   *
+   * @param infer 参考值(要求实现了 CompareTo 接口)
+   */
   public void deleteNode(@NonNull T infer) {
     // 要删除的节点不存在的情况
     var deleteNodeParent = this.getNodeParentOrRootNode(infer);
