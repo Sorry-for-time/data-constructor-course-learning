@@ -248,9 +248,34 @@ public class BFTree<T extends Comparable<T>> implements Serializable, Iterable<T
   }
 
   /**
+   * 根据指定的参考值返回值域匹配的指定节点的引用
+   *
+   * @param infer 参考值要求实现了 Comparable 接口
+   * @return 树中匹配值的节点, 否则返回 null
+   */
+  public TreeNode<T> findNodeByValue(@NonNull T infer) {
+    if (this.root == null) {
+      return null;
+    }
+    var current = this.root;
+    while (current != null) {
+      /* 树中节点与参与值进行的大小比较结果 */
+      var compareValue = current.getDataDomain().compareTo(infer);
+      if (compareValue == 0) { /* 节点值域与 infer 相等的情况 */
+        break;
+      } else if (compareValue > 0) { /* 节点值域大于 infer 的情况, 说明节点可能在左子树 */
+        current = current.getLeftChild(); /* 切换到左子树 */
+      } else { /* 节点值域小于 infer 的情况, 说明节点可能在右子树 */
+        current = current.getRightChild(); /* 切换到右子树 */
+      }
+    }
+    return current;
+  }
+
+  /**
    * 根据指定的值域删除树中已经存在的节点
    *
-   * @param infer 参考值(要求实现了 CompareTo 接口)
+   * @param infer 参考值(要求实现了 Comparable 接口)
    */
   public void deleteNode(@NonNull T infer) {
     // 要删除的节点不存在的情况
