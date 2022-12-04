@@ -1,5 +1,5 @@
-import me.shalling.SortedArrayBinarySearchUtil;
 import me.shalling.BFTree;
+import me.shalling.SortedArrayBinarySearchUtil;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -65,6 +65,8 @@ public class BFTreeTest {
     Stream.generate(() -> (int) ((Math.random()) * 100)).limit(20).forEach(integerBFTree::insertNode);
     Stream.generate(() -> (int) ((Math.random()) * 100)).limit(20).forEach(integerBFTree1::insertNode);
 
+
+    // noinspection EqualsWithItself
     System.out.println(integerBFTree.compareTo(integerBFTree)); // 0
     System.out.println(integerBFTree.compareTo(integerBFTree1));
     System.out.println(integerBFTree1.compareTo(integerBFTree));
