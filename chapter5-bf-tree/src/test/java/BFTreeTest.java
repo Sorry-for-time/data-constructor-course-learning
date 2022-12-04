@@ -134,6 +134,9 @@ public class BFTreeTest {
     System.out.println("delete 10" + bfTree.toList());
   }
 
+  /**
+   * 通过二分查找找到在树中数匹配的节点, 并返回其节点引用
+   */
   @Test
   public void findNodeByValueTest() {
     final var bftTree = new BFTree<Integer>(); /* 创建二叉树 */
