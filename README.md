@@ -6,7 +6,7 @@
 >
 > 依赖管理: Maven
 >
-> 注意事项: 部分使用了 Lombok, 请确保 IDE 已支持
+> 注意事项: 模块使用了 Lombok, 请确保 IDE 已支持
 >
 
 ## 模块详情
@@ -16,6 +16,8 @@ chapter1-linear-list        顺序表(数组 && 单链表)
 chapter2-stack              栈(基于数组)
 chapter3-link-circle-queue  循环队列(基于链表)
 chapter4-str-test           自定义简化版字符串(基于数组, 不可变长)
-chapter5-graph              图解构
+chapter5-bf-tree            二叉树数据结果和其相关方法
+chapter6-graph              图解构
+chapter7-sort-methods       排序方法
 chapter-math-exercising     离散相关概念理解练习
 ```
