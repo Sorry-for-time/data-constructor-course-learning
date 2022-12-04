@@ -142,7 +142,7 @@ public class BFTreeTest {
     final var bftTree = new BFTree<Integer>(); /* 创建二叉树 */
     int[] ints = {12, 123, 231, 12, 32123123, 31, 12, 31};
     Arrays.stream(ints).forEachOrdered(bftTree::insertNode);
-    System.out.println(bftTree.toList()); /* 构建情况 */
+    System.out.println("排序情况: " + bftTree.toList()); /* 构建情况 */
     /* 查找一个存在的节点 */
     var res1 = bftTree.findNodeByValue(231).getDataDomain();
     System.out.println(res1);
