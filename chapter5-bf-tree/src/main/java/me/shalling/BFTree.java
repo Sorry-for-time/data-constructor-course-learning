@@ -33,7 +33,6 @@ public class BFTree<T extends Comparable<T>> implements Serializable, Iterable<T
   private int length;
 
   public BFTree() {
-
   }
 
   public BFTree(TreeNode<T> root) {
@@ -110,7 +109,6 @@ public class BFTree<T extends Comparable<T>> implements Serializable, Iterable<T
     }
   }
 
-
   /**
    * 获取树的高度
    *
@@ -143,7 +141,6 @@ public class BFTree<T extends Comparable<T>> implements Serializable, Iterable<T
   public boolean isEmpty() {
     return null == this.root;
   }
-
 
   /**
    * 通过递归执行中序遍历
@@ -203,6 +200,26 @@ public class BFTree<T extends Comparable<T>> implements Serializable, Iterable<T
     }
   }
 
+  /**
+   * 通过非递归遍历实现中序遍历
+   *
+   * @param action 执行器
+   */
+  public void midOrderWithRaw(@NonNull Consumer<TreeNode<T>> action) {
+    var tree = this.root;
+    var stack = new Stack<TreeNode<T>>();
+    while (tree != null || !stack.isEmpty()) {
+      while (tree != null) {
+        stack.push(tree); /* 将节点推到栈中 */
+        tree = tree.getLeftChild(); /* 更新元素指向下一个节点, 因为时中序遍历, 所以一样指向左边的节点 */
+      }
+      /* 进行回溯, 遇到 null 就继续返回上一层, 因为外层循环判断为真的条件也包括只要 stack 不为空就行
+       * 如果回溯到的节点不为空, 那么就表示其存在子树, 继续重复内层的 while 循环推到栈中
+       * */
+      tree = stack.peek().getRightChild();
+      action.accept(stack.pop()); /* 将栈顶元素的数据用域的值传递给执行器函数 */
+    }
+  }
 
   /**
    * 找出指定值的父节点, 如果恰好是根节点, 那么就返回父节点
@@ -401,9 +418,9 @@ public class BFTree<T extends Comparable<T>> implements Serializable, Iterable<T
     }
     // 先判断子节点个数
     if (this.length > o.length) {
-      return 1;
+      return this.length - o.length;
     } else if (this.length < o.length) {
-      return -1;
+      return this.length - o.length;
     } else {
       // 两棵树节点数相同的情况, 通过比较升序节点的每个值来判断
       Object[] oNodes = o.toList().toArray();
