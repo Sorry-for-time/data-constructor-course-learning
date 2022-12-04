@@ -29,7 +29,7 @@ public final class SortedArrayBinarySearchUtil {
       }
       // mid 位置比查找值大的情况
       if (bucket[mid].compareTo(infer) > 0) {
-        high = mid - 1;
+        high = mid - 1; // 匹配值小于 mid 所在位置的值, 所以可将 high 设置为 (mid-1) 而不是 mid, 即bucket[mid] >= infer
       } else if (bucket[mid].compareTo(infer) < 0) {
         low = mid + 1;
       }
