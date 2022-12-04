@@ -1,9 +1,11 @@
+import me.shalling.SortedArrayBinarySearchUtil;
 import me.shalling.BFTree;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Stream;
 
 /**
@@ -153,5 +155,33 @@ public class BFTreeTest {
 
     Assertions.assertEquals(231, res1);
     Assertions.assertNull(res2);
+  }
+
+  /**
+   * 排序数组二分查找方式
+   */
+  @Test
+  public void arrayBinarySearchTest() {
+    final var bftTree = new BFTree<Integer>(); /* 创建二叉树 */
+    int[] ints = {12, 123, 231, 12, 32123123, 31, 12, 31};
+    Arrays.stream(ints).forEachOrdered(bftTree::insertNode);
+    var integerArray = new Integer[bftTree.getLength()];
+    AtomicInteger i = new AtomicInteger();
+    // 填充数组
+    bftTree.forEach((e) -> integerArray[i.getAndIncrement()] = e);
+    System.out.println("排序情况: " + Arrays.toString(integerArray)); // 排序情况: [12, 31, 123, 231, 32123123]
+
+    int location = SortedArrayBinarySearchUtil.binarySearch(integerArray, 12);
+    System.out.println("12, 所在的位置: " + location); // 0
+
+    int location1 = SortedArrayBinarySearchUtil.binarySearch(integerArray, 32123123);
+    System.out.println("32123123, 所在的位置: " + location1); // 4
+
+    int location2 = SortedArrayBinarySearchUtil.binarySearch(integerArray, 123);
+    System.out.println("123, 所在的位置: " + location2); // 2
+
+    // 查找一个不存在的元素
+    int location3 = SortedArrayBinarySearchUtil.binarySearch(integerArray, 223);
+    System.out.println("223, 所在的位置: " + location3); // -2
   }
 }
