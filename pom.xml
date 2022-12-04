@@ -16,6 +16,7 @@
     <module>chapter5-bf-tree</module>
     <module>chapter-math-exercising</module>
     <module>chapter6-graph</module>
+    <module>chapter7-sort-methods</module>
   </modules>
 
   <properties>
