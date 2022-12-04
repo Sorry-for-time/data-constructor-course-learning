@@ -1,5 +1,7 @@
 package me.shalling;
 
+import lombok.NonNull;
+
 /**
  * 已排序数组二分查找工具类
  *
@@ -18,7 +20,7 @@ public final class SortedArrayBinarySearchUtil {
    * @param <T>    数组元素类型
    * @return 元素在数组中的下标, 如果未找到, 那么返回 -1;
    */
-  public static <T extends Comparable<T>> int binarySearch(T[] bucket, T infer) {
+  public static <T extends Comparable<T>> int binarySearch(T[] bucket, @NonNull T infer) {
     int low = 0;
     int high = bucket.length - 1;
     while (low <= high) {
