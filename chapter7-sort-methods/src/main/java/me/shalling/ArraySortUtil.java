@@ -16,7 +16,15 @@ public final class ArraySortUtil {
    * @param <T>    实现了 Comparable 接口的数据类型
    */
   public static <T extends Comparable<T>> void bubbleSort(T[] bucket) {
-
+    for (int i = 0; i <= bucket.length - 1; ++i) {
+      for (int j = i + 1; j <= bucket.length - 1; j++) {
+        if (bucket[i].compareTo(bucket[j]) > 0) {
+          var tmp = bucket[i];
+          bucket[i] = bucket[j];
+          bucket[j] = tmp;
+        }
+      }
+    }
   }
 
   /**

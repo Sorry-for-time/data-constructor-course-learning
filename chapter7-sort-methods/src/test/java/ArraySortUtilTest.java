@@ -3,6 +3,8 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 
+import static me.shalling.ArraySortUtil.bubbleSort;
+
 /**
  * 排序方法测试
  *
@@ -19,7 +21,7 @@ public class ArraySortUtilTest {
 
   @Test
   public void bubbleSortTest() {
-    ArraySortUtil.bubbleSort(templateArr);
+    bubbleSort(templateArr);
     System.out.println(Arrays.toString(templateArr));
   }
 
