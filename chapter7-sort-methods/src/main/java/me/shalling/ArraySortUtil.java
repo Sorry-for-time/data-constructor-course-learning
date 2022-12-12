@@ -1,7 +1,7 @@
 package me.shalling;
 
 /**
- * 排序相关方法的实现试类
+ * 排序相关方法的实现类
  *
  * @author Shalling
  * @version v0.01
