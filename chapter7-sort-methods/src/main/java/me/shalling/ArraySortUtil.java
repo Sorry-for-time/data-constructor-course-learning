@@ -1,5 +1,7 @@
 package me.shalling;
 
+import java.util.Comparator;
+
 /**
  * 排序相关方法的实现类
  *
@@ -19,6 +21,25 @@ public final class ArraySortUtil {
     for (int i = 0; i <= bucket.length - 1; ++i) {
       for (int j = i + 1; j <= bucket.length - 1; j++) {
         if (bucket[i].compareTo(bucket[j]) > 0) {
+          var tmp = bucket[i];
+          bucket[i] = bucket[j];
+          bucket[j] = tmp;
+        }
+      }
+    }
+  }
+
+  /**
+   * 冒泡排序
+   *
+   * @param bucket           待排序数组
+   * @param customComparator 自定义排序规则
+   * @param <T>              类型
+   */
+  public static <T extends Comparable<T>> void bubbleSort(T[] bucket, Comparator<T> customComparator) {
+    for (int i = 0; i <= bucket.length - 1; ++i) {
+      for (int j = i + 1; j <= bucket.length - 1; j++) {
+        if (customComparator.compare(bucket[i], bucket[j]) > 0) {
           var tmp = bucket[i];
           bucket[i] = bucket[j];
           bucket[j] = tmp;
