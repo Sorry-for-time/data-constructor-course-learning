@@ -30,7 +30,7 @@ public class FormulaParser {
           switch (token) {
             case "+", "-" -> {
               if (operatorStack.isEmpty()) {
-                parsedTokenList.add(token);
+                operatorStack.add(token);
               } else {
                 while (!operatorStack.isEmpty() && !"(".equals(operatorStack.peek())) {
                   parsedTokenList.add(operatorStack.pop());
